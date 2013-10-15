@@ -4,3 +4,6 @@
 # Load posh-hg example profile
 . "$HOME\My Documents\WindowsPowerShell\posh-hg\profile.example.ps1"
 
+# Load "Stash" module.
+import-module Stash
+
