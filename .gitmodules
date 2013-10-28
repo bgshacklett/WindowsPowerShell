@@ -4,3 +4,7 @@
 [submodule "posh-hg"]
 	path = posh-hg
 	url = https://github.com/dahlbyk/posh-hg.git
+[submodule "Modules/OutlookTools"]
+	path = Modules/OutlookTools
+	url = https://github.com/AmanDhally/OutlookTools.git
+	ignore = dirty
