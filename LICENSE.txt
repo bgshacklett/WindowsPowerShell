@@ -1,6 +1,6 @@
 Unless otherwise specified, the following license applies to all content in this repository.
 
-Known Specific exceptions: Modules/Stash/Stash.psm1: Set-Clipboard
+Known Specific exceptions: Modules/Stash/Stash-CopyrightRestricted.psm1
 
 
 
