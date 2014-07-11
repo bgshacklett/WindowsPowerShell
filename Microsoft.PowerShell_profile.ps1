@@ -7,3 +7,5 @@
 # Load "Stash" module.
 import-module Stash
 
+# Disable List Truncation.
+$FormatEnumerationLimit =-1
