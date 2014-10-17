@@ -8,3 +8,6 @@
 	path = Modules/OutlookTools
 	url = git@github.com:/bgshacklett/OutlookTools
 	ignore = dirty
+[submodule "Modules/Pester"]
+	path = Modules/Pester
+	url = git@github.com:pester/Pester.git
