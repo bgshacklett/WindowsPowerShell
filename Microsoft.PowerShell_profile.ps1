@@ -3,7 +3,7 @@ $userprofile = $env:USERPROFILE
 
 
 # Load posh-git example profile
-. "$userprofile\Documents\WindowsPowerShell\posh-git\profile.example.ps1"
+. "$userprofile\Documents\WindowsPowerShell\profile.posh-git.ps1"
 
 # Load "Stash" module.
 import-module Stash
