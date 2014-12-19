@@ -6,7 +6,7 @@ $userprofile = $env:USERPROFILE
 . "$userprofile\Documents\WindowsPowerShell\profile.posh-git.ps1"
 
 # Load "Stash" module.
-import-module Stash
+import-module PSStash
 
 # Disable List Truncation.
 $FormatEnumerationLimit =-1

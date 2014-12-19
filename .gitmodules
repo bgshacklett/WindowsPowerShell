@@ -5,3 +5,6 @@
 	path = Modules/OutlookTools
 	url = git@github.com:/bgshacklett/OutlookTools
 	ignore = dirty
+[submodule "Modules/PSStash"]
+	path = Modules/PSStash
+	url = git@github.com:bgshacklett/PSStash.git
