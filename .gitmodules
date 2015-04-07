@@ -8,6 +8,6 @@
 [submodule "Modules/PSStash"]
 	path = Modules/PSStash
 	url = git@github.com:bgshacklett/PSStash.git
-[submodule ".\\Modules\\PSIdentityManagement"]
-	path = .\\Modules\\PSIdentityManagement
+[submodule "/Modules/PSIdentityManagement"]
+	path = Modules/PSIdentityManagement
 	url = git@github.com:bgshacklett/PSIdentityManagement.git
