@@ -16,5 +16,16 @@ If ($env:HOMESHARE) {
 # Load "Stash" module.
 import-module PSStash
 
+# Load PSReadline module.
+try
+{
+    import-module PSReadline -ErrorAction Stop
+    Set-PSReadlineKeyHandler -Key Tab -Function Complete
+}
+catch
+{
+    Write-Warning "Could not load PSReadline module."
+}
+
 # Disable List Truncation.
 $FormatEnumerationLimit =-1
