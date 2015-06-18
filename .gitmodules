@@ -3,11 +3,11 @@
 	url = https://github.com/dahlbyk/posh-git.git
 [submodule "Modules/OutlookTools"]
 	path = Modules/OutlookTools
-	url = git@github.com:/bgshacklett/OutlookTools
+	url = https://github.com/bgshacklett/OutlookTools
 	ignore = dirty
 [submodule "Modules/PSStash"]
 	path = Modules/PSStash
-	url = git@github.com:bgshacklett/PSStash.git
+	url = https://github.com/bgshacklett/PSStash.git
 [submodule "Modules/PSIdentityManagement"]
 	path = Modules/PSIdentityManagement
-	url = git@github.com:bgshacklett/PSIdentityManagement.git
+	url = https://github.com/bgshacklett/PSIdentityManagement.git
