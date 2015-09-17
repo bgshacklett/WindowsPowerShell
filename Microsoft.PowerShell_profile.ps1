@@ -1,4 +1,15 @@
 ﻿
+# Set $env:PATH
+If (test-path "${Env:ProgramFiles(x86)}\vim")
+{
+    # Get the Vim Directory
+    $VimPath =
+        Get-ChildItem -Path 'C:\Program Files (x86)\Vim\vim*\vim.exe' `
+        | Select-Object Directory
+
+    $env:PATH = "$($VimPath.Directory);${Env:PATH}"
+}
+
 $userprofile = $env:USERPROFILE
 
 If ($env:HOMESHARE) {
