@@ -11,6 +11,6 @@
 [submodule "Modules/PSIdentityManagement"]
 	path = Modules/PSIdentityManagement
 	url = https://github.com/bgshacklett/PSIdentityManagement.git
-[submodule "Modules/osh-SSH"]
+[submodule "Modules/Posh-SSH"]
 	path = Modules/Posh-SSH
-	url = git@github.com:bgshacklett/Posh-SSH.git
+	url = https://github.com/bgshacklett/Posh-SSH.git
