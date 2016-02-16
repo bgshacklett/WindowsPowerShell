@@ -10,6 +10,14 @@ If (test-path "${Env:ProgramFiles(x86)}\vim")
     $env:PATH = "$($VimPath.Directory);${Env:PATH}"
 }
 
+If (Test-Path "$Env:APPDATA\npm")
+{
+    $npmPath = "$Env:APPDATA\npm"
+
+    $env:PATH = "${Env:PATH};$npmPath"
+}
+
+
 $userprofile = $env:USERPROFILE
 
 If ($env:HOMESHARE) {
