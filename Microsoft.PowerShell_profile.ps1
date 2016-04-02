@@ -1,4 +1,17 @@
-﻿
+﻿$RegShellFolders = 'HKCU:\' `
+                   | Join-Path -ChildPath 'Software' `
+                   | Join-Path -ChildPath 'Microsoft' `
+                   | Join-Path -ChildPath 'Windows' `
+                   | Join-Path -ChildPath 'CurrentVersion' `
+                   | Join-Path -ChildPath 'Explorer' `
+                   | Join-Path -ChildPath 'User Shell Folders'
+
+$DocumentsFolder = Get-ItemProperty $RegShellFolders `
+                   | Select-Object -ExpandProperty Personal
+
+$PowerShellProfileFolder = $DocumentsFolder `
+                           | Join-Path -ChildPath 'WindowsPowerShell'
+
 # Set $env:PATH
 If (test-path "${Env:ProgramFiles(x86)}\vim")
 {
@@ -30,7 +43,7 @@ If ($env:HOMESHARE) {
 }
 
 # Load posh-git example profile
-. "$userprofile\Documents\WindowsPowerShell\profile.posh-git.ps1"
+. "$PowerShellProfileFolder\profile.posh-git.ps1"
 
 # Load "Stash" module.
 import-module PSStash
