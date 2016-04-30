@@ -1,4 +1,7 @@
 ﻿
+# Get the path to the current profile
+$ProfilePath = $PROFILE | Split-Path -Parent
+
 # Set $env:PATH
 If (test-path "${Env:ProgramFiles(x86)}\vim")
 {
@@ -18,8 +21,6 @@ If (Test-Path "$Env:APPDATA\npm")
 }
 
 
-$userprofile = $env:USERPROFILE
-
 If ($env:HOMESHARE) {
 
     # Set and force overwrite of the $HOME variable
@@ -30,7 +31,7 @@ If ($env:HOMESHARE) {
 }
 
 # Load posh-git example profile
-. "$userprofile\Documents\WindowsPowerShell\profile.posh-git.ps1"
+. "$ProfilePath\profile.posh-git.ps1"
 
 # Load "Stash" module.
 import-module PSStash
