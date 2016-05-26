@@ -3,6 +3,13 @@
 $ProfilePath = $PROFILE | Split-Path -Parent
 
 # Set $env:PATH
+$HomeBin = "${env:HOME\bin}"
+If (Test-Path $HomeBin)
+{
+    $env:PATH = "${$env:PATH};$HomeBin"
+}
+
+
 If (test-path "${Env:ProgramFiles(x86)}\vim")
 {
     # Get the Vim Directory
