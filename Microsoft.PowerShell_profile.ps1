@@ -1,30 +1,28 @@
-﻿
+﻿[CmdletBinding()]
+param()
+
 # Get the path to the current profile
 $ProfilePath = $PROFILE | Split-Path -Parent
-
-# Set $env:PATH
-$HomeBin = "${env:HOME\bin}"
-If (Test-Path $HomeBin)
-{
-    $env:PATH = "${$env:PATH};$HomeBin"
-}
-
 
 If (test-path "${Env:ProgramFiles(x86)}\vim")
 {
     # Get the Vim Directory
     $VimPath =
         Get-ChildItem -Path 'C:\Program Files (x86)\Vim\vim*\vim.exe' `
-        | Select-Object Directory
+        | Select-Object -ExpandProperty Directory
 
-    $env:PATH = "$($VimPath.Directory);${Env:PATH}"
+    $env:Path = "$VimPath;$Env:Path"
 }
 
+# Add NPM to path if it's not already there
 If (Test-Path "$Env:APPDATA\npm")
 {
     $npmPath = "$Env:APPDATA\npm"
 
-    $env:PATH = "${Env:PATH};$npmPath"
+    if ($env:Path | Select-String -Pattern "$npmPath" -SimpleMatch) {} else
+    {
+        $env:Path = "${Env:Path};$npmPath"
+    }
 }
 
 
@@ -36,6 +34,15 @@ If ($env:HOMESHARE) {
     # Set the "~" shortcut value for the FileSystem provider
     (get-psprovider 'FileSystem').Home = $env:HOMESHARE
 }
+
+
+# Add ~\bin to $env:Path
+$HomeBin = "$HOME\bin"
+If (Test-Path $HomeBin)
+{
+    $env:Path = "$env:Path;$HomeBin"
+}
+
 
 # Load posh-git example profile
 . "$ProfilePath\profile.posh-git.ps1"
