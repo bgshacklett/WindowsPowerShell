@@ -35,6 +35,12 @@ If ($env:HOMESHARE) {
     (get-psprovider 'FileSystem').Home = $env:HOMESHARE
 }
 
+# Add C:\Chocolatey\bin to $env:Path
+If ((Test-Path "Env:\ChocolateyPath") -and (Test-Path "$env:ChocolateyPath\bin") )
+{
+    $env:Path = "$env:Path;$env:ChocolateyPath\bin"
+}
+
 
 # Add ~\bin to $env:Path
 $HomeBin = "$HOME\bin"
