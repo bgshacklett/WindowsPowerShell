@@ -12,6 +12,9 @@ $DocumentsFolder = Get-ItemProperty $RegShellFolders `
 $PowerShellProfileFolder = $DocumentsFolder `
                            | Join-Path -ChildPath 'WindowsPowerShell'
 
+# The 'diff' alias is not analagous to any other diff command. Get rid of it.
+Remove-Item Alias:\diff -Force
+
 $UserPrograms = "${env:LOCALAPPDATA}\Programs"
 $vimFolder = "$UserPrograms\vim"
 $fawsFolder = "$UserPrograms\Rackspace\FAWS"
