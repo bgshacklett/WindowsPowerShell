@@ -17,11 +17,23 @@ Remove-Item Alias:\diff -Force
 
 $UserPrograms = "${env:LOCALAPPDATA}\Programs"
 $vimFolder = "$UserPrograms\vim"
+$PackerFolder = "$UserPrograms\HashiCorp\Packer"
 $fawsFolder = "$UserPrograms\Rackspace\FAWS"
+$nmapFolder = "${env:ProgramFiles(x86)}\Nmap"
+
+If (Test-Path $PackerFolder)
+{
+    $env:PATH = "$env:PATH;$PackerFolder"
+}
 
 If (Test-Path $fawsFolder)
 {
     $env:PATH = "$env:PATH;$fawsFolder"
+}
+
+If (Test-Path $nmapFolder)
+{
+    $env:PATH = "$env:PATH;$nmapFolder"
 }
 
 # Set $env:PATH
