@@ -15,11 +15,17 @@ $PowerShellProfileFolder = $DocumentsFolder `
 # The 'diff' alias is not analagous to any other diff command. Get rid of it.
 Remove-Item Alias:\diff -Force
 
-$UserPrograms = "${env:LOCALAPPDATA}\Programs"
-$vimFolder = "$UserPrograms\vim"
-$PackerFolder = "$UserPrograms\HashiCorp\Packer"
-$fawsFolder = "$UserPrograms\Rackspace\FAWS"
-$nmapFolder = "${env:ProgramFiles(x86)}\Nmap"
+$UserPrograms    = "${env:LOCALAPPDATA}\Programs"
+$DiffUtilsFolder = "$UserPrograms\GNU\DiffUtils\bin"
+$vimFolder       = "$UserPrograms\vim"
+$PackerFolder    = "$UserPrograms\HashiCorp\Packer"
+$fawsFolder      = "$UserPrograms\Rackspace\FAWS"
+$nmapFolder      = "${env:ProgramFiles(x86)}\Nmap"
+
+If (Test-Path $DiffUtilsFolder)
+{
+    $env:PATH = "$env:PATH;$DiffUtilsFolder"
+}
 
 If (Test-Path $PackerFolder)
 {
