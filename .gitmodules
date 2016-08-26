@@ -17,3 +17,6 @@
 [submodule "Modules/PowerYaml"]
 	path = Modules/PowerYaml
 	url = https://github.com/scottmuc/PowerYaml.git
+[submodule "Modules\\FAWS-Powershell"]
+	path = Modules\\FAWS-Powershell
+	url = git@github.rackspace.com:john6941/FAWS-Powershell.git
