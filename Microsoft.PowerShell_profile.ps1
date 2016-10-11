@@ -71,7 +71,7 @@ If ($env:USERPROFILE) {
 }
 
 # Load posh-git example profile
-. "$PowerShellProfileFolder\profile.posh-git.ps1"
+. "$PowerShellProfileFolder\Modules\Posh-Git\profile.example.ps1"
 
 # Load "Stash" module.
 import-module PSStash
