@@ -17,7 +17,8 @@ Remove-Item Alias:\diff -Force
 
 $UserPrograms    = "${env:LOCALAPPDATA}\Programs"
 $DiffUtilsFolder = "$UserPrograms\GNU\DiffUtils\bin"
-$vimFolder       = "$UserPrograms\vim"
+$userVimFolder   = "$UserPrograms\vim"
+$systemVimFolder = "${env:ProgramFiles}\vim"
 $PackerFolder    = "$UserPrograms\HashiCorp\Packer"
 $fawsFolder      = "$UserPrograms\Rackspace\FAWS"
 $nmapFolder      = "${env:ProgramFiles(x86)}\Nmap"
@@ -43,14 +44,24 @@ If (Test-Path $nmapFolder)
 }
 
 # Set $env:PATH
+
+# Add vim to the path, preferring the user folder
+$vimFolder = ($(get-item -Path $userVimFolder -ErrorAction Silentlycontinue),$(Get-Item $systemVimFolder -ErrorAction Silentlycontinue),"notfound" -ne $null)[0]
+
 If (test-path $vimFolder)
 {
     # Get the Vim Directory
-    $VimBinPath =
+    $vimBinPath =
         Get-ChildItem -Path "$vimFolder\vim*\vim.exe" `
         | Select-Object Directory
 
-    $env:PATH = "$($VimBinPath.Directory);${Env:PATH}"
+    "Vim was found at '$($vimBinPath.Directory)'. Adding to Path."
+
+    $env:PATH = "${Env:PATH};$($vimBinPath.Directory)"
+}
+Else
+{
+    Write-Warning 'Vim was not found. It will not be added to Path'
 }
 
 If (Test-Path "$Env:APPDATA\npm")
