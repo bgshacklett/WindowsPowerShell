@@ -1,77 +1,77 @@
-﻿$RegShellFolders = 'HKCU:\' `
-                   | Join-Path -ChildPath 'Software' `
-                   | Join-Path -ChildPath 'Microsoft' `
-                   | Join-Path -ChildPath 'Windows' `
-                   | Join-Path -ChildPath 'CurrentVersion' `
-                   | Join-Path -ChildPath 'Explorer' `
-                   | Join-Path -ChildPath 'User Shell Folders'
-
-$DocumentsFolder = Get-ItemProperty $RegShellFolders `
-                   | Select-Object -ExpandProperty Personal
-
-$PowerShellProfileFolder = $DocumentsFolder `
-                           | Join-Path -ChildPath 'WindowsPowerShell'
-
-# The 'diff' alias is not analagous to any other diff command. Get rid of it.
-Remove-Item Alias:\diff -Force
-
+﻿#
+# Important Constants
+#
 $UserPrograms    = "${env:LOCALAPPDATA}\Programs"
-$DiffUtilsFolder = "$UserPrograms\GNU\DiffUtils\bin"
 $userVimFolder   = "$UserPrograms\vim"
 $systemVimFolder = "${env:ProgramFiles}\vim"
-$PackerFolder    = "$UserPrograms\HashiCorp\Packer"
-$fawsFolder      = "$UserPrograms\Rackspace\FAWS"
-$nmapFolder      = "${env:ProgramFiles(x86)}\Nmap"
 
-If (Test-Path $DiffUtilsFolder)
+
+
+#
+# Functions
+#
+function Get-VimPath
 {
-    $env:PATH = "$env:PATH;$DiffUtilsFolder"
+  # Select a Vim folder, preferring the user's Programs folder
+  $vimFolder = (
+    $(Get-Item -Path $userVimFolder -ErrorAction Silentlycontinue),
+    $(Get-Item -Path $systemVimFolder -ErrorAction Silentlycontinue),
+    "notfound" -ne $null
+  )[0]
+
+  # Get the exact path to the vim binary
+  If (Test-Path $vimFolder)
+  {
+      # Get the Vim Directory
+      Get-ChildItem -Path "$vimFolder\vim*\vim.exe" `
+      | Select-Object -ExpandProperty Directory `
+      | Select-Object -ExpandProperty FullName
+  }
+  Else
+  {
+      Write-Warning 'Vim was not found. It will not be added to Path'
+  }
 }
 
-If (Test-Path $PackerFolder)
-{
-    $env:PATH = "$env:PATH;$PackerFolder"
-}
 
-If (Test-Path $fawsFolder)
-{
-    $env:PATH = "$env:PATH;$fawsFolder"
-}
 
-If (Test-Path $nmapFolder)
-{
-    $env:PATH = "$env:PATH;$nmapFolder"
-}
+# Configure Node.js Paths
+$env:NPM_PACKAGES = $env:HOME | Join-Path -ChildPath '.npm-packages'
 
+$NodeModulesCustomPath = "${env:NPM_PACKAGES}" `
+                         | Join-Path -ChildPath 'lib' `
+                         | Join-Path -ChildPath 'node_modules'
+
+$env:NODE_PATH = "${NodeModulesCustomPath}:${env:NODE_PATH}"
+
+
+#
+#
+# User PATH Config
+#
+$customPathEntries =
+@(
+  $env:PATH                             # System Defined Path
+  $(Get-VimPath)                        # Vim
+  "$UserPrograms\GNU\DiffUtils\bin"     # DiffUtils
+  "$UserPrograms\HashiCorp\Packer"      # Packer
+  "$UserPrograms\Rackspace\FAWS"        # FAWS CLI
+  "${env:ProgramFiles(x86)}\Nmap"       # NMAP
+  "C:\Chocolatey\Bin"                   # Packages installed by Chocolatey
+  "$env:NPM_PACKAGES"                   # NPM Packages
+  "$Env:APPDATA\npm"                    # Global NPM Modules
+)
+#
 # Set $env:PATH
-
-# Add vim to the path, preferring the user folder
-$vimFolder = ($(get-item -Path $userVimFolder -ErrorAction Silentlycontinue),$(Get-Item $systemVimFolder -ErrorAction Silentlycontinue),"notfound" -ne $null)[0]
-
-If (test-path $vimFolder)
-{
-    # Get the Vim Directory
-    $vimBinPath =
-        Get-ChildItem -Path "$vimFolder\vim*\vim.exe" `
-        | Select-Object Directory
-
-    "Vim was found at '$($vimBinPath.Directory)'. Adding to Path."
-
-    $env:PATH = "${Env:PATH};$($vimBinPath.Directory)"
-}
-Else
-{
-    Write-Warning 'Vim was not found. It will not be added to Path'
-}
-
-If (Test-Path "$Env:APPDATA\npm")
-{
-    $npmPath = "$Env:APPDATA\npm"
-
-    $env:PATH = "${Env:PATH};$npmPath"
-}
+Write-Host "Configuring PATH..."
+$env:PATH = $customPathEntries -join ';'
 
 
+
+
+
+
+# I always want tilde to point to $env:USERPROFILE
 If ($env:USERPROFILE) {
 
     # Set and force overwrite of the $HOME variable
@@ -81,8 +81,24 @@ If ($env:USERPROFILE) {
     (get-psprovider 'FileSystem').Home = $env:USERPROFILE
 }
 
+
+#
+# Configure Aliases
+#
+
+# The diff alias gets in the way of GNU DiffUtils.
+Remove-Item Alias:\diff -Force
+
+# Disable List Truncation.
+$FormatEnumerationLimit =-1
+
+
+#
+# Load other modules and snippets.
+#
+
 # Load posh-git example profile
-. "$PowerShellProfileFolder\Modules\Posh-Git\profile.example.ps1"
+. "$PSScriptRoot\Modules\Posh-Git\profile.example.ps1"
 
 # Load "Stash" module.
 import-module PSStash
@@ -97,6 +113,3 @@ catch
 {
     Write-Warning "Could not load PSReadline module."
 }
-
-# Disable List Truncation.
-$FormatEnumerationLimit =-1
