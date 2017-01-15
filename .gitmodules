@@ -17,12 +17,6 @@
 [submodule "Modules/PowerYaml"]
 	path = Modules/PowerYaml
 	url = https://github.com/scottmuc/PowerYaml.git
-[submodule "Modules/FAWS-Powershell"]
-	path = Modules/FAWS-Powershell
-	url = git@github.rackspace.com:bria0265/FAWS-Powershell.git
-[submodule "Modules/Posh-CTLogs"]
-	path = Modules/Posh-CTLogs
-	url = git@github.rackspace.com:bria0265/Posh-CTLogs.git
 [submodule "Modules/New-RandomPassword"]
 	path = Modules/New-RandomPassword
 	url = https://github.com/bvandermark/New-RandomPassword.git
