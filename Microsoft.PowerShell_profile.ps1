@@ -60,6 +60,7 @@ $customPathEntries =
   "C:\Chocolatey\Bin"                   # Packages installed by Chocolatey
   "$env:NPM_PACKAGES"                   # NPM Packages
   "$Env:APPDATA\npm"                    # Global NPM Modules
+  "$Env:HOME\go\bin"                    # Go binaries
 )
 #
 # Set $env:PATH
@@ -113,3 +114,12 @@ catch
 {
     Write-Warning "Could not load PSReadline module."
 }
+
+# Configure Golang
+$env:GOPATH = "$HOME\go"
+
+# Configure Virtualenv
+$env:WORKON_HOME = '~/virtualenvs'
+
+
+
