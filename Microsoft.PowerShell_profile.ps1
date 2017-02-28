@@ -1,9 +1,10 @@
 ﻿#
 # Important Constants
 #
-$UserPrograms    = "${env:LOCALAPPDATA}\Programs"
-$userVimFolder   = "$UserPrograms\vim"
-$systemVimFolder = "${env:ProgramFiles}\vim"
+$UserPrograms     = "${env:LOCALAPPDATA}\Programs"
+$userVimFolder    = "$UserPrograms\vim"
+$systemVimFolder  = "${env:ProgramFiles}\vim"
+$PSModulesExtra   = "${env:Home}\PSModules"
 
 
 
@@ -34,6 +35,11 @@ function Get-VimPath
 }
 
 
+# Configure PS Module Path
+If ( Test-Path $PSModulesExtra )
+{
+  $env:PSModulePath += ";$PSModulesExtra"
+}
 
 # Configure Node.js Paths
 $env:NPM_PACKAGES = $env:HOME | Join-Path -ChildPath '.npm-packages'
@@ -56,11 +62,13 @@ $customPathEntries =
   "$UserPrograms\GNU\DiffUtils\bin"     # DiffUtils
   "$UserPrograms\HashiCorp\Packer"      # Packer
   "$UserPrograms\Rackspace\FAWS"        # FAWS CLI
+  "$UserPrograms\JMESPath\jp"           # JP from the JMESPath Project
   "${env:ProgramFiles(x86)}\Nmap"       # NMAP
   "C:\Chocolatey\Bin"                   # Packages installed by Chocolatey
   "$env:NPM_PACKAGES"                   # NPM Packages
   "$Env:APPDATA\npm"                    # Global NPM Modules
   "$Env:HOME\go\bin"                    # Go binaries
+  "C:\Users\bria0265\node_modules\.bin" # Node binaries
 )
 #
 # Set $env:PATH
