@@ -8,6 +8,12 @@
 Session.vim
 .netrwhist
 *~    
+
+
+# Modules commonly installed through Install-Module
+Modules/AWSPowerShell
+Modules/Pester
+
 ##### Golang #####
 # Compiled Object files, Static and Dynamic libs (Shared Objects)
 *.o
