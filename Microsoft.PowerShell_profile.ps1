@@ -69,6 +69,7 @@ $customPathEntries =
   "$Env:APPDATA\npm"                    # Global NPM Modules
   "$Env:HOME\go\bin"                    # Go binaries
   "C:\Users\bria0265\node_modules\.bin" # Node binaries
+  "C:\MinGW\msys\1.0\bin"               # MSYS Binaries
 )
 #
 # Set $env:PATH
