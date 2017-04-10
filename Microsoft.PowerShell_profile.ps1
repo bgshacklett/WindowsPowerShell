@@ -62,6 +62,7 @@ $customPathEntries =
   "$UserPrograms\GNU\DiffUtils\bin"     # DiffUtils
   "$UserPrograms\HashiCorp\Packer"      # Packer
   "$UserPrograms\Rackspace\FAWS"        # FAWS CLI
+  "$UserPrograms\Rackspace\ffs"        # FAWS CLI
   "$UserPrograms\JMESPath\jp"           # JP from the JMESPath Project
   "${env:ProgramFiles(x86)}\Nmap"       # NMAP
   "C:\Chocolatey\Bin"                   # Packages installed by Chocolatey
