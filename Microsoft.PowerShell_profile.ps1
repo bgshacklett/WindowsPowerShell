@@ -1,6 +1,6 @@
-﻿#
+# ################################
 # Important Constants
-#
+# ################################
 $UserPrograms     = "${env:LOCALAPPDATA}\Programs"
 $userVimFolder    = "$UserPrograms\vim"
 $systemVimFolder  = "${env:ProgramFiles}\vim"
@@ -8,9 +8,9 @@ $PSModulesExtra   = "${env:Home}\PSModules"
 
 
 
-#
+# ################################
 # Functions
-#
+# ################################
 function Get-VimPath
 {
   # Select a Vim folder, preferring the user's Programs folder
@@ -34,8 +34,9 @@ function Get-VimPath
   }
 }
 
-
+# ################################
 # Configure PS Module Path
+# ################################
 If ( Test-Path $PSModulesExtra )
 {
   $env:PSModulePath += ";$PSModulesExtra"
@@ -51,18 +52,17 @@ $NodeModulesCustomPath = "${env:NPM_PACKAGES}" `
 $env:NODE_PATH = "${NodeModulesCustomPath}:${env:NODE_PATH}"
 
 
-#
-#
+# ################################
 # User PATH Config
-#
+# ################################
 $customPathEntries =
 @(
   $env:PATH                             # System Defined Path
   $(Get-VimPath)                        # Vim
   "$UserPrograms\GNU\DiffUtils\bin"     # DiffUtils
   "$UserPrograms\HashiCorp\Packer"      # Packer
-  "$UserPrograms\Rackspace\FAWS"        # FAWS CLI
-  "$UserPrograms\Rackspace\ffs"        # FAWS CLI
+  "$UserPrograms\Rackspace\faws-cli"    # FAWS CLI
+  "$UserPrograms\Rackspace\ffs"         # FAWS CLI
   "$UserPrograms\JMESPath\jp"           # JP from the JMESPath Project
   "${env:ProgramFiles(x86)}\Nmap"       # NMAP
   "C:\Chocolatey\Bin"                   # Packages installed by Chocolatey
@@ -82,6 +82,10 @@ $env:PATH = $customPathEntries -join ';'
 
 
 
+# ####################################
+# Configure Miscellaneous Preferences
+# ####################################
+
 # I always want tilde to point to $env:USERPROFILE
 If ($env:USERPROFILE) {
 
@@ -93,9 +97,9 @@ If ($env:USERPROFILE) {
 }
 
 
-#
+# ################################
 # Configure Aliases
-#
+# ################################
 
 # The diff alias gets in the way of GNU DiffUtils.
 Remove-Item Alias:\diff -Force
@@ -104,15 +108,18 @@ Remove-Item Alias:\diff -Force
 $FormatEnumerationLimit =-1
 
 
-#
+# ################################
 # Load other modules and snippets.
-#
-
-# Load posh-git example profile
-. "$PSScriptRoot\Modules\Posh-Git\profile.example.ps1"
+# ################################
 
 # Load "Stash" module.
 import-module PSStash
+
+# Trigger posh-git and ensure that ssh-agent is loaded
+Start-SshAgent
+
+# Configure the Prompt
+$GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $true
 
 # Load PSReadline module.
 try
@@ -130,6 +137,7 @@ $env:GOPATH = "$HOME\go"
 
 # Configure Virtualenv
 $env:WORKON_HOME = '~/virtualenvs'
+
 
 
 
