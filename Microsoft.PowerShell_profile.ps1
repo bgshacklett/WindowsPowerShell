@@ -59,10 +59,11 @@ $customPathEntries =
 @(
   $env:PATH                             # System Defined Path
   $(Get-VimPath)                        # Vim
+  "$UserPrograms\NeoVim\bin"            # NeoVim
   "$UserPrograms\GNU\DiffUtils\bin"     # DiffUtils
   "$UserPrograms\HashiCorp\Packer"      # Packer
   "$UserPrograms\Rackspace\faws-cli"    # FAWS CLI
-  "$UserPrograms\Rackspace\ffs"         # FAWS CLI
+  "$UserPrograms\Rackspace\Maestro"     # Maestro
   "$UserPrograms\JMESPath\jp"           # JP from the JMESPath Project
   "${env:ProgramFiles(x86)}\Nmap"       # NMAP
   "C:\Chocolatey\Bin"                   # Packages installed by Chocolatey
