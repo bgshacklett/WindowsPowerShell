@@ -1,6 +1,7 @@
 # ################################
 # Important Constants
 # ################################
+$env:HOME         = ($env:HOME,$env:HOMEPATH -ne $null)[0]
 $UserPrograms     = "${env:LOCALAPPDATA}\Programs"
 $userVimFolder    = "$UserPrograms\vim"
 $systemVimFolder  = "${env:ProgramFiles}\vim"
@@ -72,11 +73,19 @@ $customPathEntries =
   "$Env:HOME\go\bin"                    # Go binaries
   "C:\Users\bria0265\node_modules\.bin" # Node binaries
   "C:\MinGW\msys\1.0\bin"               # MSYS Binaries
+  "C:\Program Files\Git\usr\bin"        # 
+  "C:\Program Files\Git\mingw64\bin"    # 
 )
 #
 # Set $env:PATH
 Write-Host "Configuring PATH..."
-$env:PATH = $customPathEntries -join ';'
+$env:PATH = (
+              $customPathEntries -split ';' `
+              | Where-Object { $_ } `
+              | Where-Object { Test-Path $_ -PathType Container } `
+              | Resolve-Path
+            ) `
+            -join ';'
 
 
 
@@ -117,6 +126,7 @@ $FormatEnumerationLimit =-1
 import-module PSStash
 
 # Trigger posh-git and ensure that ssh-agent is loaded
+Import-Module $PSScriptRoot/Modules/Posh-Git/src/posh-git.psd1
 Start-SshAgent
 
 # Configure the Prompt
@@ -134,7 +144,7 @@ catch
 }
 
 # Configure Golang
-$env:GOPATH = "$HOME\go"
+$env:GOPATH = "$HOME\Projects"
 
 # Configure Virtualenv
 $env:WORKON_HOME = '~/virtualenvs'
