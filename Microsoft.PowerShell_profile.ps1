@@ -35,6 +35,13 @@ function Get-VimPath
   }
 }
 
+
+# ###############################
+# Configure Golang
+# ###############################
+$env:GOPATH = "$HOME\Projects"
+
+
 # ################################
 # Configure PS Module Path
 # ################################
@@ -70,13 +77,14 @@ $customPathEntries =
   "C:\Chocolatey\Bin"                   # Packages installed by Chocolatey
   "$env:NPM_PACKAGES"                   # NPM Packages
   "$Env:APPDATA\npm"                    # Global NPM Modules
-  "$Env:HOME\go\bin"                    # Go binaries
+  "$UserPrograms\Go\bin"                # Go binaries
   "C:\Users\bria0265\node_modules\.bin" # Node binaries
   "C:\MinGW\msys\1.0\bin"               # MSYS Binaries
   "C:\Program Files\Git\usr\bin"        # 
   "C:\Program Files\Git\mingw64\bin"    # 
+  "$env:GOPATH\bin"                     # Go Binaries
 )
-#
+
 # Set $env:PATH
 Write-Host "Configuring PATH..."
 $env:PATH = (
@@ -88,6 +96,16 @@ $env:PATH = (
             -join ';'
 
 
+
+
+# ####################################
+# Security Preferences
+# ####################################
+
+# Use TLS versions 1.1 and 1.2
+[Net.ServicePointManager]::SecurityProtocol =
+  [Net.SecurityProtocolType]::Tls11,
+  [Net.SecurityProtocolType]::Tls12
 
 
 
@@ -132,23 +150,15 @@ Start-SshAgent
 # Configure the Prompt
 $GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $true
 
-# Load PSReadline module.
-try
-{
-    import-module PSReadline -ErrorAction Stop
-    Set-PSReadlineKeyHandler -Key Tab -Function Complete
-}
-catch
-{
-    Write-Warning "Could not load PSReadline module."
-}
-
-# Configure Golang
-$env:GOPATH = "$HOME\Projects"
-
 # Configure Virtualenv
 $env:WORKON_HOME = '~/virtualenvs'
 
 
+# Configure Bash style completion
+Set-PSReadlineKeyHandler -Key Tab -Function Complete
 
-
+# Chocolatey profile
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
