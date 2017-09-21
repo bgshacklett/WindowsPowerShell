@@ -14,3 +14,12 @@
 [submodule "Modules/Posh-SSH"]
 	path = Modules/Posh-SSH
 	url = https://github.com/bgshacklett/Posh-SSH.git
+[submodule "Modules/PowerYaml"]
+	path = Modules/PowerYaml
+	url = https://github.com/scottmuc/PowerYaml.git
+[submodule "Modules/New-RandomPassword"]
+	path = Modules/New-RandomPassword
+	url = https://github.com/bvandermark/New-RandomPassword.git
+[submodule "Modules/TabExpansionPlusPlus"]
+	path = Modules/TabExpansionPlusPlus
+	url = https://github.com/lzybkr/TabExpansionPlusPlus.git

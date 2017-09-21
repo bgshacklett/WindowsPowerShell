@@ -1,2 +1,18 @@
 *~
 *.s??
+
+
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~    
+
+
+# Modules commonly installed through Install-Module
+Modules/AWSPowerShell
+Modules/Pester
+
+# P4Merge Merge Artifacts
+*.orig
