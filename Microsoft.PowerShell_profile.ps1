@@ -40,6 +40,7 @@ function Get-VimPath
 # Configure Golang
 # ###############################
 $env:GOPATH = "$HOME\Projects"
+$env:GOROOT = "$UserPrograms\Go"
 
 
 # ################################
@@ -65,26 +66,31 @@ $env:NODE_PATH = "${NodeModulesCustomPath}:${env:NODE_PATH}"
 # ################################
 $customPathEntries =
 @(
-  $env:PATH                             # System Defined Path
-  $(Get-VimPath)                        # Vim
-  "$UserPrograms\NeoVim\bin"            # NeoVim
-  "$UserPrograms\GNU\DiffUtils\bin"     # DiffUtils
-  "$UserPrograms\HashiCorp\Packer"      # Packer
-  "$UserPrograms\Rackspace\faws-cli"    # FAWS CLI
-  "$UserPrograms\Rackspace\Maestro"     # Maestro
-  "$UserPrograms\JMESPath\jp"           # JP from the JMESPath Project
-  "${env:ProgramFiles(x86)}\Nmap"       # NMAP
-  "C:\Chocolatey\Bin"                   # Packages installed by Chocolatey
+  $env:PATH                              # System Defined Path
+  $(Get-VimPath)                         # Vim
+  "$UserPrograms\NeoVim\bin"             # NeoVim
+  "$UserPrograms\GNU\DiffUtils\bin"      # DiffUtils
+  "$UserPrograms\HashiCorp\Packer"       # Packer
+  "$UserPrograms\Rackspace\faws-cli"     # FAWS CLI
+  "$UserPrograms\Rackspace\Maestro"      # Maestro
+  "$UserPrograms\JMESPath\jp"            # JP from the JMESPath Project
+  "${env:ProgramFiles(x86)}\Nmap"        # NMAP
+  "C:\Chocolatey\Bin"                    # Packages installed by Chocolatey
   "C:\Chocolatey\lib\jq.1.5\tools"       # JQ in the Chocolatey folder
-  "$env:NPM_PACKAGES"                   # NPM Packages
-  "$Env:APPDATA\npm"                    # Global NPM Modules
-  "$UserPrograms\Go\bin"                # Go binaries
-  "C:\Users\bria0265\node_modules\.bin" # Node binaries
-  "C:\MinGW\msys\1.0\bin"               # MSYS Binaries
+  "$env:NPM_PACKAGES"                    # NPM Packages
+  "$Env:APPDATA\npm"                     # Global NPM Modules
+  "$UserPrograms\Go\bin"                 # Go binaries
+  "C:\Users\bria0265\node_modules\.bin"  # Node binaries
+  "C:\MinGW\msys\1.0\bin"                # MSYS Binaries
   "$Env:APPDATA\Python\Python35\Scripts" # Python3 Scripts
-  "C:\Program Files\Git\usr\bin"        # 
-  "C:\Program Files\Git\mingw64\bin"    # 
-  "$env:GOPATH\bin"                     # Go Binaries
+  "C:\Python27"                          # Python2
+  "C:\Program Files\Git\usr\bin"         # 
+  "C:\Program Files\Git\mingw64\bin"     # 
+  "$env:GOPATH\bin"                      # Go Binaries
+  "$UserPrograms\OpenShift"              # OpenShift Client
+  "$UserPrograms\Helm"                   # Helm Client
+  "$UserPrograms\Pandoc"                 # Pandoc
+  "$UserPrograms\Tidy"                   # Tidy
 )
 # Set $env:PATH
 Write-Host "Configuring PATH..."
@@ -152,12 +158,11 @@ Start-SshAgent
 $GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $true
 $GitPromptSettings.DefaultPromptSuffix = '[$(Get-Fawsenvironment)] $(''>'' * ($nestedPromptLevel + 1)) '
 
-# Configure Virtualenv
-$env:WORKON_HOME = '~/virtualenvs'
-
-
-# Configure Bash style completion
-Set-PSReadlineKeyHandler -Key Tab -Function Complete
+# Configure PSReadline
+Set-PSReadlineOption -EditMode Vi
+Set-PSReadlineOption -ViModeIndicator Cursor
+Set-PSReadlineKeyHandler -Key Ctrl+r -Function ReverseSearchHistory -ViMode Insert
+Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete -ViMode Insert
 
 # Chocolatey profile
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
