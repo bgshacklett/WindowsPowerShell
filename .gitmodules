@@ -1,6 +1,3 @@
-[submodule "posh-git"]
-	path = Modules/posh-git
-	url = https://github.com/dahlbyk/posh-git.git
 [submodule "Modules/OutlookTools"]
 	path = Modules/OutlookTools
 	url = https://github.com/bgshacklett/OutlookTools
@@ -23,3 +20,6 @@
 [submodule "Modules/TabExpansionPlusPlus"]
 	path = Modules/TabExpansionPlusPlus
 	url = https://github.com/lzybkr/TabExpansionPlusPlus.git
+[submodule "Modules/posh-git"]
+	path = Modules/posh-git
+	url = https://github.com/dahlbyk/posh-git.git
