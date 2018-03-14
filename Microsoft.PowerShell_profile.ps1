@@ -70,20 +70,14 @@ $customPathEntries =
   "$UserPrograms\NeoVim\bin"            # NeoVim
   "$UserPrograms\GNU\DiffUtils\bin"     # DiffUtils
   "$UserPrograms\HashiCorp\Packer"      # Packer
-  "$UserPrograms\Rackspace\faws-cli"    # FAWS CLI
-  "$UserPrograms\Rackspace\Maestro"     # Maestro
   "$UserPrograms\JMESPath\jp"           # JP from the JMESPath Project
-  "${env:ProgramFiles(x86)}\Nmap"       # NMAP
-  "C:\Chocolatey\Bin"                   # Packages installed by Chocolatey
-  "C:\Chocolatey\lib\jq.1.5\tools"       # JQ in the Chocolatey folder
+  "C:\Chocolatey\lib\jq.1.5\tools"      # JQ in the Chocolatey folder
   "$env:NPM_PACKAGES"                   # NPM Packages
   "$Env:APPDATA\npm"                    # Global NPM Modules
   "$UserPrograms\Go\bin"                # Go binaries
   "C:\Users\bria0265\node_modules\.bin" # Node binaries
   "C:\MinGW\msys\1.0\bin"               # MSYS Binaries
   "$Env:APPDATA\Python\Python35\Scripts" # Python3 Scripts
-  "C:\Program Files\Git\usr\bin"        # 
-  "C:\Program Files\Git\mingw64\bin"    # 
   "$env:GOPATH\bin"                     # Go Binaries
 )
 # Set $env:PATH
