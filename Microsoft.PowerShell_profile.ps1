@@ -40,6 +40,7 @@ function Get-VimPath
 # Configure Golang
 # ###############################
 $env:GOPATH = "$HOME\Projects"
+$env:GOROOT = "$UserPrograms\Go"
 
 
 # ################################
@@ -72,13 +73,12 @@ $customPathEntries =
   "$UserPrograms\HashiCorp\Packer"      # Packer
   "$UserPrograms\JMESPath\jp"           # JP from the JMESPath Project
   "C:\Chocolatey\lib\jq.1.5\tools"      # JQ in the Chocolatey folder
-  "$env:NPM_PACKAGES"                   # NPM Packages
-  "$Env:APPDATA\npm"                    # Global NPM Modules
-  "$UserPrograms\Go\bin"                # Go binaries
-  "C:\Users\bria0265\node_modules\.bin" # Node binaries
-  "C:\MinGW\msys\1.0\bin"               # MSYS Binaries
+  "$env:NPM_PACKAGES"                    # NPM Packages
+  "$Env:APPDATA\npm"                     # Global NPM Modules
+  "$UserPrograms\Go\bin"                 # Go binaries
+  "C:\Users\bria0265\node_modules\.bin"  # Node binaries
+  "C:\MinGW\msys\1.0\bin"                # MSYS Binaries
   "$Env:APPDATA\Python\Python35\Scripts" # Python3 Scripts
-  "$env:GOPATH\bin"                     # Go Binaries
 )
 # Set $env:PATH
 Write-Host "Configuring PATH..."
@@ -146,12 +146,11 @@ Start-SshAgent
 $GitPromptSettings.DefaultPromptAbbreviateHomeDirectory = $true
 $GitPromptSettings.DefaultPromptSuffix = '[$(Get-Fawsenvironment)] $(''>'' * ($nestedPromptLevel + 1)) '
 
-# Configure Virtualenv
-$env:WORKON_HOME = '~/virtualenvs'
-
-
-# Configure Bash style completion
-Set-PSReadlineKeyHandler -Key Tab -Function Complete
+# Configure PSReadline
+Set-PSReadlineOption -EditMode Vi
+Set-PSReadlineOption -ViModeIndicator Cursor
+Set-PSReadlineKeyHandler -Key Ctrl+r -Function ReverseSearchHistory -ViMode Insert
+Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete -ViMode Insert
 
 # Chocolatey profile
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
